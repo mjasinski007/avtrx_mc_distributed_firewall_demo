@@ -19,9 +19,9 @@ resource "local_file" "local_ssh_key" {
     file_permission = "0400"
 }
 
-###############################################
-### AWS Private Ubuntu Host in VPC66 (Prod) ###
-###############################################
+#################################################
+### AWS Private Ubuntu Host 1 in VPC66 (Prod) ###
+#################################################
 
 module "aws_ubnt66_priv_prod01_nsg" {
     source              = "terraform-aws-modules/security-group/aws"
@@ -54,15 +54,64 @@ module "aws_ubnt66_priv_prod01_instance" {
     tags = merge(
         local.default_tags,
         {
-            Description = "Private Ubuntu Prod Host in Spoke66 VPC"
+            Description = "Private Ubuntu Prod Host 1 in Spoke66 VPC"
+            OS_Name     = "AWS_Linux"
+            Environment = "PROD"
+            Application = "WEB"
         }
     )
 }
 
 
-##############################################
-### AWS Private Ubuntu Host in VPC67 (Dev) ###
-##############################################
+#################################################
+### AWS Private Ubuntu Host 2 in VPC66 (Prod) ###
+#################################################
+
+module "aws_ubnt66_priv_prod02_nsg" {
+    source              = "terraform-aws-modules/security-group/aws"
+    version             = "4.5.0"
+    name                = "aws-ubnt66-priv-prod02-nsg"
+    description         = "Security Group Ubuntu Private Host in Spoke66"
+    vpc_id              = module.spoke66_prod.vpc.vpc_id
+    ingress_cidr_blocks = ["0.0.0.0/0"]
+    ingress_rules       = ["http-80-tcp","https-443-tcp","ssh-tcp","all-icmp"]
+    egress_rules        = ["all-all"]
+
+    depends_on          = [module.spoke66_prod]
+}
+
+module "aws_ubnt66_priv_prod02_instance" {
+    source                      = "terraform-aws-modules/ec2-instance/aws"
+    version                     = "3.6.0"
+    instance_type               = var.aws_ubnt66_priv_prod02_instance_size
+    name                        = var.aws_ubnt66_priv_prod02_name
+    ami                         = data.aws_ami.ubuntu_golden_ami.id
+    key_name                    = aws_key_pair.aws_ec2_keypair.key_name
+    subnet_id                   = module.spoke66_prod.vpc.private_subnets[1].subnet_id
+    vpc_security_group_ids      = [module.aws_ubnt66_priv_prod02_nsg.security_group_id]
+    associate_public_ip_address = false
+    private_ip                  = var.aws_ubnt66_priv_prod02_private_ip_address
+    user_data                   = local.aws_ubnt66_priv_prod02_user_data
+
+    depends_on                  = [module.spoke66_prod]
+
+    tags = merge(
+        local.default_tags,
+        {
+            Description = "Private Ubuntu Prod Host 2 in Spoke66 VPC"
+            OS_Name     = "AWS_Linux"
+            Environment = "PROD"
+            Application = "DB"
+        }
+    )
+}
+
+
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC67 (Dev) ###
+################################################
 
 
 module "aws_ubnt67_priv_dev01_nsg" {
@@ -97,9 +146,123 @@ module "aws_ubnt67_priv_dev01_instance" {
         local.default_tags,
         {
             Description = "Private Ubuntu Dev Host in Spoke67 VPC"
+            OS_Name     = "AWS_Linux"
+            Environment = "DEV"
         }
     )
 }
+
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC68 (Dev) ###
+################################################
+
+/* 
+module "aws_ubnt68_priv_dev01_nsg" {
+    source              = "terraform-aws-modules/security-group/aws"
+    version             = "4.5.0"
+    name                = "aws-ubnt68-priv-dev01-nsg"
+    description         = "Security Group Private Ubuntu Host in Spoke68"
+    vpc_id              = module.spoke68_dev.vpc.vpc_id
+    ingress_cidr_blocks = ["0.0.0.0/0"]
+    ingress_rules       = ["http-80-tcp","https-443-tcp","ssh-tcp","all-icmp"]
+    egress_rules        = ["all-all"]
+
+    depends_on          = [module.spoke67_dev]
+}
+
+module "aws_ubnt68_priv_dev01_instance" {
+    source                      = "terraform-aws-modules/ec2-instance/aws"
+    version                     = "3.6.0"
+    instance_type               = var.aws_ubnt68_priv_dev01_instance_size
+    name                        = var.aws_ubnt68_priv_dev01_name
+    ami                         = data.aws_ami.ubuntu_golden_ami.id
+    key_name                    = aws_key_pair.aws_ec2_keypair.key_name
+    subnet_id                   = module.spoke68_dev.vpc.private_subnets[0].subnet_id
+    vpc_security_group_ids      = [module.aws_ubnt68_priv_dev01_nsg.security_group_id]
+    associate_public_ip_address = false
+    private_ip                  = var.aws_ubnt68_priv_dev01_private_ip_address
+    user_data                   = local.aws_ubnt68_priv_dev01_user_data
+
+    depends_on                  = [module.spoke68_dev]
+
+    tags = merge(
+        local.default_tags,
+        {
+            Description = "Private Ubuntu Dev Host in Spoke68 VPC"
+            OS_Name     = "AWS_Linux"
+            Environment = "DEV"
+        }
+    )
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################
+### AWS Private Ubuntu Host 2 in VPC67 (Dev) ###
+################################################
+
+
+module "aws_ubnt67_priv_dev02_nsg" {
+    source              = "terraform-aws-modules/security-group/aws"
+    version             = "4.5.0"
+    name                = "aws-ubnt67-priv-dev02-nsg"
+    description         = "Security Group Private Ubuntu Host 2 in Spoke67"
+    vpc_id              = module.spoke67_dev.vpc.vpc_id
+    ingress_cidr_blocks = ["0.0.0.0/0"]
+    ingress_rules       = ["http-80-tcp","https-443-tcp","ssh-tcp","all-icmp"]
+    egress_rules        = ["all-all"]
+
+    depends_on          = [module.spoke67_dev]
+}
+
+module "aws_ubnt67_priv_dev02_instance" {
+    source                      = "terraform-aws-modules/ec2-instance/aws"
+    version                     = "3.6.0"
+    instance_type               = var.aws_ubnt67_priv_dev02_instance_size
+    name                        = var.aws_ubnt67_priv_dev02_name
+    ami                         = data.aws_ami.ubuntu_golden_ami.id
+    key_name                    = aws_key_pair.aws_ec2_keypair.key_name
+    subnet_id                   = module.spoke67_dev.vpc.private_subnets[1].subnet_id
+    vpc_security_group_ids      = [module.aws_ubnt67_priv_dev02_nsg.security_group_id]
+    associate_public_ip_address = false
+    private_ip                  = var.aws_ubnt67_priv_dev02_private_ip_address
+    user_data                   = local.aws_ubnt67_priv_dev02_user_data
+
+    depends_on                  = [module.spoke67_dev]
+
+    tags = merge(
+        local.default_tags,
+        {
+            Description = "Private Ubuntu Dev Host 2 in Spoke67 VPC"
+            OS_Name     = "AWS_Linux"
+            Environment = "DEV"
+        }
+    )
+}
+
+
+
+
 
 ###################################################
 ### AWS Public JumpServer Windows Host in VPC66 ###
@@ -147,6 +310,8 @@ resource "aws_instance" "aws_win66_pub_jumpsrv_instance" {
         {
             Name        = "win66-pub-jumpsrv-prod01"
             Description = "Public Windows JumpServer in Spoke66 VPC"
+            OS_Name     = "AWS_Windows"
+            Environment = "PROD"
         }
     )
 }
@@ -221,6 +386,8 @@ resource "aws_instance" "aws_win67_priv_dev01_instance" {
         {
             Name        = "win67-priv-dev01"
             Description = "Private Windows Dev Host in Spoke67 VPC"
+            OS_Name     = "AWS_Windows"
+            Environment = "DEV"
         }
     )
 }

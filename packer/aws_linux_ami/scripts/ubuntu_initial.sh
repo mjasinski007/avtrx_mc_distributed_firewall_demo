@@ -56,6 +56,18 @@ endpoints:
     interval: 5s
     conditions:
       - "[STATUS] == 200"
+  - name: ICMP (aws-ubnt66-priv-prod02)
+    url: "icmp://10.66.0.20"
+    group: Aviatrix Network
+    interval: 5s
+    conditions:
+      - "[CONNECTED] == true"
+  - name: HTTP (aws-ubnt66-priv-prod02)
+    url: "http://ip-10-66-0-20.eu-west-2.compute.internal"
+    group: Aviatrix Network
+    interval: 5s
+    conditions:
+      - "[STATUS] == 200"
   - name: ICMP (aws-win66-pub-jumpsrv-prod01)
     url: "icmp://10.66.0.40"
     group: Aviatrix Network

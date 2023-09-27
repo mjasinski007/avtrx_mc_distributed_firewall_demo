@@ -115,7 +115,16 @@ resource "azurerm_linux_virtual_machine" "az_ubnt56_priv_prod01_vm" {
     custom_data = base64encode(data.template_file.az_ubnt56_priv_prod01_bootstrap.rendered)
 
     depends_on = [azurerm_network_interface.az_ubnt56_priv_prod01_main_nic]
+
+     tags = merge(
+        local.default_tags,
+        {
+            OS_Name     = "Azure_Linux"
+            Environment = "PROD"
+        }
+    )
 }
+
 
 
 
@@ -229,6 +238,14 @@ resource "azurerm_linux_virtual_machine" "az_ubnt57_priv_dev01_vm" {
     custom_data = base64encode(data.template_file.az_ubnt57_priv_dev01_bootstrap.rendered)
 
     depends_on = [azurerm_network_interface.az_ubnt57_priv_dev01_main_nic]
+
+    tags = merge(
+        local.default_tags,
+        {
+            OS_Name     = "Azure_Linux"
+            Environment = "DEV"
+        }
+    )
 }
 
 
@@ -342,6 +359,14 @@ resource "azurerm_windows_virtual_machine" "az_win56_priv_prod01_vm" {
     }
 
     depends_on = [azurerm_network_interface.az_win56_priv_prod01_main_nic]
+
+    tags = merge(
+        local.default_tags,
+        {
+            OS_Name     = "Azure_Windows"
+            Environment = "PROD"
+        }
+    )
 }
 
 /* resource "azurerm_virtual_machine_extension" "az_win56_priv_prod01_vm_bootstrap" {

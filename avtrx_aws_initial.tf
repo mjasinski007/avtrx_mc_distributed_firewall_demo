@@ -97,3 +97,28 @@ module "spoke67_dev" {
         }
     )
 }
+
+
+module "spoke68_dev" {
+    source          = "terraform-aviatrix-modules/mc-spoke/aviatrix"
+    version         = "1.6.4"
+    cloud           = var.avx_aws_cloud_type
+    account         = var.aws_ctrl_account_name
+    name            = var.avx_aws_spoke68_dev_vpc_name
+    cidr            = var.avx_aws_spoke68_dev_cidr
+    region          = var.avx_aws_spoke68_dev_region
+    gw_name         = var.avx_aws_spoke68_dev_gw_name
+    instance_size   = var.avx_aws_spoke68_dev_instance_size
+    #local_as_number = var.avx_aws_spoke67_dev_gw_name_local_asn
+    transit_gw      = var.avx_aws_transit150_gw_name
+    #network_domain  = ""
+    attached        = true
+    ha_gw           = false
+
+    tags = merge(
+        local.default_tags,
+        {
+            Description = "Aviatrix Spoke68 (Dev) in AWS"
+        }
+    )
+}

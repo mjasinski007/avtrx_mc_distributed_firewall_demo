@@ -6,9 +6,18 @@ output "aws_ubnt66_priv_prod01_private_fqdn" {
     value = module.aws_ubnt66_priv_prod01_instance.private_dns
 }
 
+output "aws_ubnt66_priv_prod02_private_fqdn" {
+    value = module.aws_ubnt66_priv_prod02_instance.private_dns
+}
+
 output "aws_ubnt67_priv_dev01_private_fqdn" {
     value = module.aws_ubnt67_priv_dev01_instance.private_dns
 }
+
+output "aws_ubnt67_priv_dev02_private_fqdn" {
+    value = module.aws_ubnt67_priv_dev02_instance.private_dns
+}
+
 
 output "aws_win67_priv_dev01_private_fqdn" {
     value = aws_instance.aws_win67_priv_dev01_instance.private_dns
@@ -36,3 +45,10 @@ output "aws_win67_priv_dev01_rdp_password" {
 }
 
 
+/* output "ap_sm" {
+  value = aviatrix_smart_group.webapp_sm.uuid
+}
+
+output "db_sm" {
+  value = aviatrix_smart_group.dbapp_sm.uuid
+} */

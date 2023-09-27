@@ -28,19 +28,31 @@ resource "aviatrix_distributed_firewalling_origin_cert_enforcement_config" "test
 
 
 
-/* resource "aviatrix_distributed_firewalling_intra_vpc" "test" {
+resource "aviatrix_distributed_firewalling_intra_vpc" "enable_intra" {
   vpcs {
-    account_name = "azure-account"
-    vpc_id       = "azure-vpc-0:rg-av-azure-vpc-0-808200:8168668b-a646-45b9-b88b-d756e60cf130"
-    region       = "Central US"
+    account_name = var.aws_ctrl_account_name
+    vpc_id       = module.spoke66_prod.vpc.vpc_id
+    region       = var.avx_aws_spoke66_prod_region
   }
 
   vpcs {
-    account_name = "azure-account"
-    vpc_id       = "azure-vpc-1:rg-av-azure-vpc-1-562104:622a2277-5c57-4149-bcb9-c00d9284ee18"
-    region       = "Central US"
+    account_name = var.aws_ctrl_account_name
+    vpc_id       = module.spoke67_dev.vpc.vpc_id
+    region       = var.avx_aws_spoke67_dev_region
   }
-} */
+
+  vpcs {
+    account_name = var.aws_ctrl_account_name
+    vpc_id       = module.spoke68_dev.vpc.vpc_id
+    region       = var.avx_aws_spoke68_dev_region
+  }
+
+    vpcs {
+    account_name = var.azure_ctrl_account_name
+    vpc_id       = module.azure_spoke56_prod.vpc.vpc_id
+    region       = module.azure_spoke56_prod.vpc.region
+  }
+}
 
 
 

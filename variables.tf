@@ -147,6 +147,37 @@ variable "avx_aws_spoke67_dev_name_local_asn" {
     type = string
 }
 
+
+##################################
+### AWS/Aviatrix Spoke68 (Dev) ###
+##################################
+
+variable "avx_aws_spoke68_dev_region" {
+    type = string
+}
+
+variable "avx_aws_spoke68_dev_vpc_name" {
+    type = string
+}
+
+variable "avx_aws_spoke68_dev_cidr" {
+    type = string
+}
+
+variable "avx_aws_spoke68_dev_gw_name" {
+    type = string
+}
+
+variable "avx_aws_spoke68_dev_instance_size" {
+    type = string
+}
+
+variable "avx_aws_spoke68_dev_name_local_asn" {
+    type = string
+}
+
+
+
 #####################################
 ### Azure/Aviatrix Spoke56 (Prod) ###
 #####################################
@@ -192,9 +223,9 @@ variable "avx_az_spoke57_dev_instance_size" {
     type = string
 }
 
-###############################################
-### AWS Private Ubuntu Host in VPC66 (Prod) ###
-###############################################
+#################################################
+### AWS Private Ubuntu Host 1 in VPC66 (Prod) ###
+#################################################
 
 variable "aws_ec2_keypair" {
     type = string
@@ -217,9 +248,27 @@ variable "aws_ubnt66_priv_prod01_private_ip_address" {
 }
 
 
-##############################################
-### AWS Private Ubuntu Host in VPC67 (Dev) ###
-##############################################
+#################################################
+### AWS Private Ubuntu Host 2 in VPC66 (Prod) ###
+#################################################
+
+
+variable "aws_ubnt66_priv_prod02_instance_size" {
+    type = string
+}
+
+variable "aws_ubnt66_priv_prod02_name" {
+    type = string
+}
+
+variable "aws_ubnt66_priv_prod02_private_ip_address" {
+    type = string
+}
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC67 (Dev) ###
+################################################
 
 variable "aws_ubnt67_priv_dev01_instance_size" {
     type = string
@@ -232,6 +281,45 @@ variable "aws_ubnt67_priv_dev01_name" {
 variable "aws_ubnt67_priv_dev01_private_ip_address" {
     type = string
 }
+
+
+################################################
+### AWS Private Ubuntu Host 2 in VPC67 (Dev) ###
+################################################
+
+variable "aws_ubnt67_priv_dev02_instance_size" {
+    type = string
+}
+
+variable "aws_ubnt67_priv_dev02_name" {
+    type = string
+}
+
+variable "aws_ubnt67_priv_dev02_private_ip_address" {
+    type = string
+}
+
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC68 (Dev) ###
+################################################
+
+variable "aws_ubnt68_priv_dev01_instance_size" {
+    type = string
+}
+
+variable "aws_ubnt68_priv_dev01_name" {
+    type = string
+}
+
+variable "aws_ubnt68_priv_dev01_private_ip_address" {
+    type = string
+}
+
+
+
+
 
 
 ##########################################################

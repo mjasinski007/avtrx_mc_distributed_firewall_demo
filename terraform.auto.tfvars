@@ -60,6 +60,20 @@ avx_aws_spoke67_dev_instance_size     = "t3.medium"
 avx_aws_spoke67_dev_name_local_asn    = "65067"
 
 
+#################################
+### AWS/Aviatrix Spoke68 Prod ###
+#################################
+
+avx_aws_spoke68_dev_region            = "eu-west-2"
+avx_aws_spoke68_dev_vpc_name          = "avx-aws-spoke68-dev-vpc"
+avx_aws_spoke68_dev_cidr              = "10.68.0.0/16"
+avx_aws_spoke68_dev_gw_name           = "avx-aws-spoke68-dev-gw"
+avx_aws_spoke68_dev_instance_size     = "t3.medium"
+avx_aws_spoke68_dev_name_local_asn    = "65068"
+
+
+
+
 #####################################
 ### Azure/Aviatrix Spoke56 (Prod) ###
 #####################################
@@ -80,9 +94,9 @@ avx_az_spoke57_dev_vpc_cidr      = "10.57.0.0/16"
 avx_az_spoke57_dev_instance_size = "Standard_B1ms"
 
 
-###############################################
-### AWS Private Ubuntu Host in VPC66 (Prod) ###
-###############################################
+#################################################
+### AWS Private Ubuntu Host 1 in VPC66 (Prod) ###
+#################################################
 
 aws_ec2_keypair                     = "aws_ec2_keypair"
 aws_ec2_ubuntu_password             = "Aviatrix123#"
@@ -92,13 +106,40 @@ aws_ubnt66_priv_prod01_name               = "ubnt66-priv-prod01"
 aws_ubnt66_priv_prod01_private_ip_address = "10.66.0.14"
 
 
-##############################################
-### AWS Private Ubuntu Host in VPC67 (Dev) ###
-##############################################
+#################################################
+### AWS Private Ubuntu Host 2 in VPC66 (Prod) ###
+#################################################
+
+aws_ubnt66_priv_prod02_instance_size      = "t2.micro"
+aws_ubnt66_priv_prod02_name               = "ubnt66-priv-prod02"
+aws_ubnt66_priv_prod02_private_ip_address = "10.66.0.20"
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC67 (Dev) ###
+################################################
 
 aws_ubnt67_priv_dev01_instance_size      = "t2.micro"
 aws_ubnt67_priv_dev01_name               = "ubnt67-priv-dev01"
 aws_ubnt67_priv_dev01_private_ip_address = "10.67.0.14"
+
+
+################################################
+### AWS Private Ubuntu Host 1 in VPC67 (Dev) ###
+################################################
+
+aws_ubnt68_priv_dev01_instance_size      = "t2.micro"
+aws_ubnt68_priv_dev01_name               = "ubnt68-priv-dev01"
+aws_ubnt68_priv_dev01_private_ip_address = "10.68.0.14"
+
+
+################################################
+### AWS Private Ubuntu Host 2 in VPC67 (Dev) ###
+################################################
+
+aws_ubnt67_priv_dev02_instance_size      = "t2.micro"
+aws_ubnt67_priv_dev02_name               = "ubnt67-priv-dev02"
+aws_ubnt67_priv_dev02_private_ip_address = "10.67.0.20"
 
 
 ##########################################################
@@ -162,8 +203,8 @@ az_win56_priv_prod01_sku            = "2019-Datacenter"
 ### Tags Variable Values
 
 createdby    = "TERRAFORM"
-environment  = "PROD"
-application  = "app"
+environment  = "Test"
+application  = "App"
 owner        = "vMario"
 repository   = "none"
 
